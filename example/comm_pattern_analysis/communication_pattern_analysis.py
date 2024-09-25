@@ -1,21 +1,36 @@
 import sys
 import os
-proj_dir = os.environ['BAGUA_DIR']
-sys.path.append(proj_dir + r"/python")
-import json
+
+WORKDIR = os.path.dirname(os.path.abspath(__file__))
+PYTHON_DIR = os.path.abspath(os.path.join(WORKDIR, "..", "..", "python"))
+sys.path.append(PYTHON_DIR)
+
 import perflow as pf
-from pag import * 
+from pag import *
 
 pflow = pf.PerFlow()
 
 # Run the binary and return a program abstraction graph
-# tdpag, ppag = pflow.run(binary = "cg.B.x", cmd = "srun -n 64 ./cg.B.x", nprocs = 64)
+nprocs = 32
+binary = "cg.B.x"
 
-pflow.readPag(dir = 'cg.B.x-64p-20220814-215035')
+binary = os.path.join(WORKDIR, binary)
+tdpag, ppag = pflow.run(
+    binary=binary,
+    cmd=f"mpirun -n {nprocs} --use-hwthread-cpus {binary}",
+    nprocs=nprocs,
+)
+
+# get the latest pag dir
+pag_dir_list = sorted(
+    [dir for dir in os.listdir(WORKDIR) if f"-{nprocs}p-" in dir], reverse=True
+)
+pag_dir = os.path.join(WORKDIR, pag_dir_list[0])
+pflow.readPag(dir=pag_dir)
 
 # # draw pags and save as PDF files
 # pflow.draw(tdpag, save_pdf = './cg.B.8.tdpag')
 # pflow.draw(ppag, save_pdf = './cg.B.8.ppag')
 
 # Perform imbalance analysis
-pflow.communication_pattern_analysis_model(64)
+pflow.communication_pattern_analysis_model(nprocs=nprocs)

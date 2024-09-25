@@ -119,7 +119,7 @@ target_link_libraries(
   baguatool
   PRIVATE
   # TODO: we do not need all these
-  dyninstAPI parseAPI instructionAPI symtabAPI symLite dynDwarf dynElf common unwind)
+  dyninstAPI parseAPI instructionAPI symtabAPI dynDwarf dynElf common unwind)
 target_link_libraries(baguatool PRIVATE ${PAPI_LIBRARIES})
 target_link_libraries(baguatool PRIVATE ${Boost_LIBRARIES})
 

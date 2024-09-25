@@ -1,0 +1,6 @@
+.vscode
+.venv
+build
+*.obj
+*.pdf
+__pycache__

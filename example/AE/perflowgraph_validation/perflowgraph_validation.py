@@ -1,8 +1,10 @@
 import sys
 import os
-proj_dir = os.environ['BAGUA_DIR']
-sys.path.append(proj_dir + r"/python")
-import json
+WORKDIR = os.path.dirname(os.path.abspath(__file__))
+PYTHON_DIR = os.path.abspath(os.path.join(WORKDIR, "..", "..", "python"))
+sys.path.append(PYTHON_DIR)
+
+
 import perflow as pf
 from pag import * 
 

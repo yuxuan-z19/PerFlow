@@ -11,3 +11,4 @@
 [submodule "third_party/papi"]
 	path = third_party/papi
 	url = https://github.com/icl-utk-edu/papi.git
+	ignore = dirty
