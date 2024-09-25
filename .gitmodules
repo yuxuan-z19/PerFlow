@@ -5,3 +5,9 @@
 [submodule "third_party/wrap"]
 	path = third_party/wrap
 	url = git@github.com:LLNL/wrap.git
+[submodule "third_party/dyninst"]
+	path = third_party/dyninst
+	url = https://github.com/dyninst/dyninst.git
+[submodule "third_party/papi"]
+	path = third_party/papi
+	url = https://github.com/icl-utk-edu/papi.git
